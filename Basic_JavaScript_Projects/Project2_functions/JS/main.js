@@ -10,3 +10,4 @@ function My_Second_Function() {
     sentence += " a lot from this course!";
     document.getElementById("demo2") .innerHTML = sentence;
 }
+
