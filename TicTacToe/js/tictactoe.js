@@ -91,6 +91,7 @@ function drawWinLine(coordX1, coordY1, coordX2, coordY2) {
     function animateLineDrawing() {
         const animationLoop = requestAnimationFrame(animateLineDrawing);
         c.clearRect(0, 0, 608, 608);
+        c.beginPath();
         c.moveTo(x1, y1);
         c.lineTo(x, y);
         c.lineWidth = 10;
@@ -106,19 +107,23 @@ function drawWinLine(coordX1, coordY1, coordX2, coordY2) {
             if (y > y2) { y -= 10; }
             if (x >= x2 && y <= y2) { cancelAnimationFrame(animationLoop); }
         }
-
+        if (x1 <= x2 && y1 >= y2) {
+            if (x < x2) { x += 10; }
+            if (y > y2) { y -= 10; }
+            if (x >= x2 && y <= y2) { cancelAnimationFrame(animationLoop); }
+        }
     }
     // Clears canvas after game ends
     function clear() {
         const animationLoop = requestAnimationFrame(clear);
         c.clearRect(0, 0, 608, 608);
         cancelAnimationFrame(animationLoop);
-}
-// Disallows clicks while win sound plays
-disableClick();
-audio('./media/winGame.mp3');
-animateLineDrawing();
-setTimeout(function () { clear(); resetGame(); }, 1000);
+    }
+    // Disallows clicks while win sound plays
+    disableClick();
+    audio('./media/winGame.mp3');
+    animateLineDrawing();
+    setTimeout(function () { clear(); resetGame(); }, 1000);
 }
 // Resets game after tie or win
 function resetGame() {
